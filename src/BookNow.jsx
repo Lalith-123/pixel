@@ -8,7 +8,7 @@ function BookNow() {
     e.preventDefault();
 
     emailjs.sendForm('service_bws8id2', 'template_y8hbim7', form.current, 'cnTwa_OQWQuy2jYeQ')
-      .then((result) => {
+      .then(() => {
         alert('Enquiry sent successfully!');
         e.target.reset();
       }, (error) => {

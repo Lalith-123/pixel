@@ -45,7 +45,7 @@ function Testimonial() {
         <ul style={{ margin: '0px', padding: '0px', textAlign: 'center' }}> {dots} </ul>
       </div>
     ),
-    customPaging: i => (
+    customPaging: () => (
       <div className="w-3 h-3 bg-gray-600 rounded-full transition-all duration-300"></div>
     ),
     responsive: [
@@ -78,7 +78,7 @@ function Testimonial() {
             border-radius: 9999px;
         }
       `}</style>
-      
+
       <div className="max-w-7xl mx-auto">
         {/* --- Header --- */}
         <div className="text-center mb-20">

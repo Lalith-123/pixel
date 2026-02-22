@@ -31,7 +31,7 @@ const ScrambleText = ({ text }) => {
         block = "";
       };
 
-      const timer = setTimeout(() => {
+      setTimeout(() => {
         if (--i) rustle();
         nextFrame();
         si++;

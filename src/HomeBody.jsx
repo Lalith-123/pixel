@@ -1,10 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { RiFilmFill } from "react-icons/ri";
 import { RiAppleLine } from "react-icons/ri";
 // import ScrambleText from "./ScrambleText";
 
 function HomeBody() {
+  const phrases = ["Shoot", "Edit", "Deliver Reels instantly"];
+  const [currentPhrase, setCurrentPhrase] = useState(0);
+  const [widthClass, setWidthClass] = useState("w-0");
+
+  useEffect(() => {
+    const cyclePhrases = () => {
+      // Collapse
+      setWidthClass("w-0");
+      setTimeout(() => {
+        // Switch phrase while collapsed
+        setCurrentPhrase((prev) => (prev + 1) % phrases.length);
+      }, 770);
+      // Expand after delay
+      setTimeout(() => {
+        setWidthClass("w-full");
+      }, 840);
+    };
+
+    const interval = setInterval(cyclePhrases, 3150); // Total cycle: 4s display + 1s transition
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="bg-[#121212] text-white font-sans min-h-screen flex flex-col justify-center items-center p-4">
       <div className="text-center max-w-4xl mx-auto">
@@ -13,8 +35,23 @@ function HomeBody() {
           <h2 className="text-sm md:text-base font-bold text-gray-300 tracking-widest uppercase mb-3">
             BHARAT'S BEST INSTANT CONTENT SERVICE
           </h2>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+          {/* <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
             We Shoot • Edit • Deliver Reels in
+          </h2> */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight flex items-baseline">
+            <span className="shrink-0 mr-2">We</span>
+            <span className="relative flex items-baseline">
+              <span
+                className={`overflow-hidden whitespace-nowrap transition-all duration-1000 ease-in-out font-bold text-red-500 ${widthClass}`}
+              >
+                {phrases[currentPhrase]}
+              </span>
+              {/* <span className="ml-1 w-3 h-3 bg-red-500 rounded-full"></span> */}
+              <span className="relative ml-1 flex items-center justify-center">
+                <span className="absolute w-6 h-6 bg-red-500 rounded-full blur-md opacity-60 animate-tail"></span>
+                <span className="relative w-3 h-3 bg-red-500 rounded-full shadow-[0_0_12px_rgba(239,68,68,0.8)]"></span>
+              </span>
+            </span>
           </h2>
         </div>
 

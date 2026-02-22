@@ -4,4 +4,11 @@
     --color-primary: #1c1c1c;
     --color-tahiti: #3ab7bf;
     --color-bermuda: #78dcca;
+    --color-gold-400: #EBCB8B;
+    --color-gold-500: #D0B060;
+    --color-gold-600: #C5A059;
+    --color-dark-900: #0a0a0a;
+    --color-dark-800: #111111;
+    --font-display: "sans", sans-serif; 
+    --font-display: "sans", Inter; 
 }
