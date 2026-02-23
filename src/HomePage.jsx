@@ -6,7 +6,6 @@ import Bestsellers from "./Bestsellers";
 import Features from "./Features";
 import Pricing from "./Pricing";
 import Testimonial from "./Testimonial";
-import BookNow from "./BookNow";
 
 function HomePage() {
   return (
@@ -17,7 +16,6 @@ function HomePage() {
       <Bestsellers />
       <Features />
       <Pricing />
-      <BookNow />
       <Testimonial />
     </div>
   );
