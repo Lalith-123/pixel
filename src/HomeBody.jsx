@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 // import ScrambleText from "./ScrambleText";
 
 function HomeBody() {
-  const phrases = ["Edit", "Deliver Reels instantly", "Shoot"];
+  const phrases = ["Shoot", "Edit", "Deliver Reels instantly"];
   const [currentPhrase, setCurrentPhrase] = useState(0);
   const [widthClass, setWidthClass] = useState("w-0");
   const navigate = useNavigate();
