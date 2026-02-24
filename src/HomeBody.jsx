@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { RiFilmFill } from "react-icons/ri";
 import { RiAppleLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 // import ScrambleText from "./ScrambleText";
 
 function HomeBody() {
-  const phrases = ["Shoot", "Edit", "Deliver Reels instantly"];
+  const phrases = ["Edit", "Deliver Reels instantly", "Shoot"];
   const [currentPhrase, setCurrentPhrase] = useState(0);
   const [widthClass, setWidthClass] = useState("w-0");
+  const navigate = useNavigate();
+
+  const handleContactClick = () => {
+    navigate("/pixel/contactUs/");
+  };
 
   useEffect(() => {
     const cyclePhrases = () => {
@@ -22,7 +28,7 @@ function HomeBody() {
         setWidthClass("w-full");
       }, 840);
     };
-
+    cyclePhrases();
     const interval = setInterval(cyclePhrases, 3150); // Total cycle: 4s display + 1s transition
     return () => clearInterval(interval);
   }, []);
@@ -72,10 +78,18 @@ function HomeBody() {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="bg-[#cab06f] hover:bg-[#330708] transition-colors text-white font-bold py-3 px-8 rounded-lg">
+            {/* <button className="bg-[#cab06f] hover:bg-[#330708] transition-colors text-white font-bold py-3 px-8 rounded-lg">
               Book Now
-            </button>
-            <button className="bg-[#1C1C1C] border border-[#cab06f] hover:bg-gray-800 transition-colors text-[#cab06f] font-bold py-3 px-8 rounded-lg">
+            </button> */}
+            <div className="mt-auto w-40 relative z-10">
+              <button
+                onClick={handleContactClick}
+                className="w-full h-18 bg-gradient-to-r from-gold-500 to-gold-600 text-white font-bold py-4 rounded-xl flex items-center justify-center hover:opacity-90 transition-opacity shadow-lg shadow-gold-500/20"
+              >
+                Book Now
+              </button>
+            </div>
+            <button className="text-[#cab06f] border-2 border-[#cab06f] rounded-lg hover:bg-gold-500 hover:text-white transition-colors font-bold py-3 px-8 rounded-lg">
               Become a Partner
             </button>
           </div>

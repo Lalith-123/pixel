@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import HomePage from "./HomePage";
 import GetInTouch from "./GetInTouch";
@@ -19,14 +18,14 @@ function App() {
       </nav> */}
       <Routes>
         <Route
-          path="/"
+          path="/pixel/"
           element={
             <div className="bg-gradient-to-t from-[#2b261a] via-[#121212] to-[#121212]">
               <HomePage />
             </div>
           }
         />
-        <Route path="/about" element={<GetInTouch />} />
+        <Route path="/pixel/contactUs" element={<GetInTouch />} />
       </Routes>
     </Router>
   );
