@@ -1,4 +1,9 @@
 import React from "react";
+import image1 from "./assets/image1.png"
+import image2 from "./assets/image2.png"
+import image3 from "./assets/image3.png"
+import image4 from "./assets/image4.png"
+import { BadgeCheck, icons } from 'lucide-react';
 
 // An array to hold feature data, making the component cleaner and easier to update.
 // Replace the imageSrc placeholders with the actual paths to your images.
@@ -6,19 +11,19 @@ const features = [
   {
     title: "Trained & Certified Reel Makers",
     description: "Each Partner clears 6 filters to get their certification",
-    imageSrc: "/path/to/your/image1.png", // Replace with your image path
+    imageSrc: image1, // Replace with your image path
     altText: "Certified Reel Maker",
   },
   {
     title: "Easy Booking",
     description: "Stop struggling with complex booking procedures",
-    imageSrc: "/path/to/your/image2.png", // Replace with your image path
+    imageSrc: BadgeCheck, // Replace with your image path
     altText: "Phone showing easy booking process",
   },
   {
     title: "Unbelievable Pricing",
     description: "Each Reel starts at 1999/-",
-    imageSrc: "/path/to/your/image3.png", // Replace with your image path
+    imageSrc: image2, // Replace with your image path
     altText: "Person reacting to great pricing",
   },
   {
@@ -30,7 +35,7 @@ const features = [
   {
     title: "Instant Reels, Instant Editing",
     description: "No hidden charges! Clients get upfront pricing, secure payment options, and a seamless checkout experience.",
-    imageSrc: "/path/to/your/image5.png", // Replace with your image path
+    imageSrc: image3, // Replace with your image path
     altText: "Instant editing process",
   },
   {
@@ -62,11 +67,11 @@ function WhyUs() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-gray-900/50 border border-yellow-900/40 rounded-2xl p-6 flex items-center gap-6 transform hover:scale-105 transition-transform duration-300"
+              className="bg-gray-900/50 border border-yellow-900/40 rounded-2xl flex items-center gap-6 transform hover:scale-105 transition-transform duration-300"
             >
               <div className="flex-shrink-0">
                 <img
-                  className="h-24 w-24 object-contain"
+                  className="h-30 w-30 object-contain"
                   src={feature.imageSrc}
                   alt={feature.altText}
                 />

@@ -37,25 +37,21 @@ function HomeBody() {
     <div className="bg-[#121212] text-white font-sans min-h-screen flex flex-col justify-center items-center p-4">
       <div className="text-center max-w-4xl mx-auto">
         {/* Main Heading Section */}
-        <div className="mb-12">
+        <div className="mb-12 text-center">
           <h2 className="text-sm md:text-base font-bold text-gray-300 tracking-widest uppercase mb-3">
             BHARAT'S BEST INSTANT CONTENT SERVICE
           </h2>
-          {/* <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
-            We Shoot • Edit • Deliver Reels in
-          </h2> */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight flex items-baseline">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight flex items-baseline justify-center">
             <span className="shrink-0 mr-2">We</span>
             <span className="relative flex items-baseline">
               <span
-                className={`overflow-hidden whitespace-nowrap transition-all duration-1000 ease-in-out font-bold text-red-500 ${widthClass}`}
+                className={`overflow-hidden whitespace-nowrap transition-all duration-1000 ease-in-out font-bold text-[#D4AF37] ${widthClass}`}
               >
                 {phrases[currentPhrase]}
               </span>
-              {/* <span className="ml-1 w-3 h-3 bg-red-500 rounded-full"></span> */}
               <span className="relative ml-1 flex items-center justify-center">
-                <span className="absolute w-6 h-6 bg-red-500 rounded-full blur-md opacity-60 animate-tail"></span>
-                <span className="relative w-3 h-3 bg-red-500 rounded-full shadow-[0_0_12px_rgba(239,68,68,0.8)]"></span>
+                <span className="absolute w-6 h-6 bg-[#D4AF37] rounded-full blur-md opacity-60 animate-tail"></span>
+                <span className="relative w-3 h-3 bg-[#D4AF37] rounded-full shadow-[0_0_12px_rgba(239,68,68,0.8)]"></span>
               </span>
             </span>
           </h2>
@@ -98,7 +94,7 @@ function HomeBody() {
           <div className="flex flex-wrap justify-center gap-8 sm:gap-12 md:gap-16 pt-10">
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-extrabold text-[#cab06f]">
-                50,000+
+                800+
               </div>
               {/* <ScrambleText text="50,000+" /> */}
               <div className="text-xs md:text-sm text-white uppercase tracking-wider mt-1">
@@ -107,7 +103,7 @@ function HomeBody() {
             </div>
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-extrabold text-[#cab06f]">
-                4.9/5
+                4.8/5
               </div>
               {/* <ScrambleText text="4.9/5" /> */}
               <div className="text-xs md:text-sm text-white uppercase tracking-wider mt-1">
@@ -116,7 +112,7 @@ function HomeBody() {
             </div>
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-extrabold text-[#cab06f]">
-                500+
+                30+
               </div>
               {/* <ScrambleText text="500+" /> */}
               <div className="text-xs md:text-sm text-white uppercase tracking-wider mt-1">

@@ -48,9 +48,7 @@ export default function App() {
                 <div>
                   <h3 className="text-xl font-semibold mb-2 text-[#D4AF37]">Our Location</h3>
                   <p className="text-white/60 leading-relaxed">
-                    Dr.Ganesh Residency, 202<br />
-                    Banjara Hills, Hyderabad<br />
-                    Telangana 500073, India
+                    45/142, road no. 2, Venkata Ramana Colony Road, Avanthi Nagar, backside, Kurnool, Andhra Pradesh 518003
                   </p>
                 </div>
               </div>
@@ -77,7 +75,7 @@ export default function App() {
                 <div>
                   <h3 className="text-xl font-semibold mb-2 text-[#D4AF37]">Phone</h3>
                   <p className="text-white/60 leading-relaxed hover:text-[#D4AF37] transition-colors cursor-pointer">
-                    +916305306829
+                    +91 93928 94805
                   </p>
                 </div>
               </div>
