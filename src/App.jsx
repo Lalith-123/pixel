@@ -1,21 +1,12 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./ScrollToTop";
 import HomePage from "./HomePage";
 import GetInTouch from "./GetInTouch";
 
 function App() {
   return (
-    // <div className="bg-gradient-to-t from-[#2b261a] via-[#121212] to-[#121212]">
-    //   <HomePage />
-    // </div>
     <Router>
-      {/* <nav className="p-4 bg-gray-100 space-x-4">
-        <Link to="/" className="text-blue-500 hover:underline">
-          Home
-        </Link>
-        <Link to="/about" className="text-blue-500 hover:underline">
-          GetInTouch
-        </Link>
-      </nav> */}
+      <ScrollToTop /> {/* 👈 Add this */}
       <Routes>
         <Route
           path="/pixel/"
@@ -25,7 +16,14 @@ function App() {
             </div>
           }
         />
-        <Route path="/pixel/contactUs" element={<GetInTouch />} />
+        <Route
+          path="/pixel/contactUs"
+          element={<GetInTouch mode="enquiry" />}
+        />
+        <Route
+          path="/pixel/becomePartner"
+          element={<GetInTouch mode="partner" />}
+        />
       </Routes>
     </Router>
   );

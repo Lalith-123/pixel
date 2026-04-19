@@ -1,13 +1,7 @@
-import React from 'react';
-import Slider from 'react-slick';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaQuoteLeft } from 'react-icons/fa';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
-// Import carousel styles
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
-// --- Testimonial Data ---
-// Replace avatar URLs with your actual image paths
 const testimonialData = [
   {
     quote: 'Seamless booking, professional creators, stunning reels! Flashoot made capturing memories effortless and fun.',
@@ -31,84 +25,190 @@ const testimonialData = [
   },
 ];
 
+// gold-400: #EBCB8B   gold-500: #D0B060
+const GOLD_500     = '#D0B060';
+const GOLD_500_50  = 'rgba(208,176,96,0.5)';
+const GOLD_500_30  = 'rgba(208,176,96,0.3)';
+
+function useWindowWidth() {
+  const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+  useEffect(() => {
+    const handler = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
+  return width;
+}
+
+const loopData = [...testimonialData, ...testimonialData, ...testimonialData];
+
 function Testimonial() {
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    appendDots: dots => (
-      <div style={{ bottom: '-60px' }}>
-        <ul style={{ margin: '0px', padding: '0px', textAlign: 'center' }}> {dots} </ul>
-      </div>
-    ),
-    customPaging: () => (
-      <div className="w-3 h-3 bg-gray-600 rounded-full transition-all duration-300"></div>
-    ),
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+  const width = useWindowWidth();
+  const slidesToShow = width < 768 ? 1 : width < 1024 ? 2 : 3;
+  const total = testimonialData.length;
+
+  const [current, setCurrent] = useState(total);
+  const [transitioning, setTransitioning] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const autoplayRef = useRef(null);
+  const isJumping = useRef(false);
+
+  const cardWidth = 100 / slidesToShow;
+
+  const goTo = (index, withTransition = true) => {
+    setTransitioning(withTransition);
+    setCurrent(index);
   };
 
-  return (
-    <div className="bg-gradient-to-b from-[#1a0202] to-[#121212] text-white py-24 px-4 sm:px-6 lg:px-8">
-      {/* Global styles for active slick dot */}
-      <style>{`
-        .slick-dots li.slick-active div {
-          background-color: #cab06f; /* Red color */
-          width: 32px; /* Wider active dot */
-        }
-        .slick-dots li div {
-            border-radius: 9999px;
-        }
-      `}</style>
+  const next = () => {
+    if (isJumping.current) return;
+    goTo(current + 1);
+  };
 
+  const prev = () => {
+    if (isJumping.current) return;
+    goTo(current - 1);
+  };
+
+  const handleTransitionEnd = () => {
+    isJumping.current = true;
+    if (current >= total * 2) {
+      goTo(current - total, false);
+    } else if (current < total) {
+      goTo(current + total, false);
+    }
+    setTimeout(() => { isJumping.current = false; }, 50);
+  };
+
+  useEffect(() => {
+    clearInterval(autoplayRef.current);
+    autoplayRef.current = setInterval(() => {
+      if (!isPaused) {
+        setCurrent(prev => prev + 1);
+        setTransitioning(true);
+      }
+    }, 3000);
+    return () => clearInterval(autoplayRef.current);
+  }, [isPaused]);
+
+  const handlePrev = () => { prev(); };
+  const handleNext = () => { next(); };
+  const handleDot  = (i) => { goTo(total + i); };
+
+  const activeDot = ((current % total) + total) % total;
+
+  return (
+    <div className="bg-dark-900 text-white py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* --- Header --- */}
+
+        {/* Header */}
         <div className="text-center mb-20">
           <h2 className="text-4xl sm:text-5xl font-bold">
-            What Our <span className="bg-gradient-to-r from-[#cab06f] to-[#52472d] bg-clip-text text-transparent">Loving Customers Say</span>
+            What Our{' '}
+            <span className="bg-gradient-to-r from-[#cab06f] to-[#52472d] bg-clip-text text-transparent">
+              Loving Customers Say
+            </span>
           </h2>
           <p className="mt-4 text-lg text-gray-400">
             Join thousands of satisfied customers who trust Flashoot
           </p>
         </div>
 
-        {/* --- Testimonial Slider --- */}
-        <Slider {...sliderSettings}>
-          {testimonialData.map((item, index) => (
-            <div key={index} className="px-4">
-              <div className="bg-[#1c1c1c]/80 border border-gray-800 rounded-2xl p-8 h-[280px] flex flex-col justify-between">
-                <div className="relative">
-                  <div className="absolute -top-12 -left-4 bg-yellow-800/50 p-2 rounded-lg border border-yellow-700/50">
-                    <FaQuoteLeft className="text-yellow-400 text-2xl" />
+        {/* Slider */}
+        <div className="relative">
+
+          {/* Prev button */}
+          <button
+            onClick={handlePrev}
+            className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:opacity-80"
+            style={{ backgroundColor: GOLD_500 }}
+            aria-label="Previous"
+          >
+            <IoIosArrowBack style={{ color: '#ffffff', fontSize: '20px' }} />
+          </button>
+
+          {/* Track */}
+          <div className="overflow-hidden mx-6">
+            <div
+              className="flex"
+              style={{
+                transform: `translateX(-${current * cardWidth}%)`,
+                transition: transitioning ? 'transform 500ms ease-in-out' : 'none',
+              }}
+              onTransitionEnd={handleTransitionEnd}
+            >
+              {loopData.map((item, index) => (
+                <div
+                  key={index}
+                  style={{ minWidth: `${cardWidth}%` }}
+                  className="px-3 pt-8"
+                >
+                  <div
+                    className="bg-[#1c1c1c]/80 rounded-2xl p-8 pt-10 h-[280px] flex flex-col justify-between transition-all duration-300"
+                    style={{ border: `3px solid ${GOLD_500_50}` }}
+                    onMouseEnter={(e) => {
+                      setIsPaused(true);
+                      e.currentTarget.style.borderColor = GOLD_500;
+                    }}
+                    onMouseLeave={(e) => {
+                      setIsPaused(false);
+                      e.currentTarget.style.borderColor = GOLD_500_50;
+                    }}
+                  >
+                    <div className="relative">
+                      {/* Quote icon */}
+                      <div
+                        className="absolute -top-14 -left-4 p-2 rounded-lg"
+                        style={{ backgroundColor: GOLD_500 }}
+                      >
+                        <FaQuoteLeft style={{ color: '#ffffff', fontSize: '18px' }} />
+                      </div>
+                      <p className="text-gray-300 leading-relaxed">{item.quote}</p>
+                    </div>
+
+                    <div className="flex items-center mt-6">
+                      <img
+                        src={item.avatar}
+                        alt={item.name}
+                        className="w-12 h-12 rounded-full"
+                        style={{ border: `2px solid ${GOLD_500}` }}
+                      />
+                      <p className="ml-4 font-bold text-white">{item.name}</p>
+                    </div>
                   </div>
-                  <p className="text-gray-300 leading-relaxed">{item.quote}</p>
                 </div>
-                <div className="flex items-center mt-6">
-                  <img src={item.avatar} alt={item.name} className="w-12 h-12 rounded-full border-2 border-yellow-500" />
-                  <p className="ml-4 font-bold text-white">{item.name}</p>
-                </div>
-              </div>
+              ))}
             </div>
+          </div>
+
+          {/* Next button */}
+          <button
+            onClick={handleNext}
+            className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:opacity-80"
+            style={{ backgroundColor: GOLD_500 }}
+            aria-label="Next"
+          >
+            <IoIosArrowForward style={{ color: '#ffffff', fontSize: '20px' }} />
+          </button>
+        </div>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-2 mt-16">
+          {testimonialData.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => handleDot(i)}
+              className="h-3 rounded-full transition-all duration-300"
+              style={{
+                width: activeDot === i ? '32px' : '12px',
+                backgroundColor: activeDot === i ? GOLD_500 : GOLD_500_30,
+                border: `1px solid ${GOLD_500_50}`,
+              }}
+              aria-label={`Go to slide ${i + 1}`}
+            />
           ))}
-        </Slider>
+        </div>
+
       </div>
     </div>
   );

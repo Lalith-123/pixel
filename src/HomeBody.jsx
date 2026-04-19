@@ -15,6 +15,10 @@ function HomeBody() {
     navigate("/pixel/contactUs/");
   };
 
+  const handlePartnerClick = () => {
+    navigate("/pixel/becomePartner/");
+  };
+
   useEffect(() => {
     const cyclePhrases = () => {
       // Collapse
@@ -85,7 +89,10 @@ function HomeBody() {
                 Book Now
               </button>
             </div>
-            <button className="text-[#cab06f] border-2 border-[#cab06f] rounded-lg hover:bg-gold-500 hover:text-white transition-colors font-bold py-3 px-8 rounded-lg">
+            <button
+              onClick={handlePartnerClick}
+              className="text-[#cab06f] border-2 border-[#cab06f] rounded-lg hover:bg-gold-500 hover:text-white transition-colors font-bold py-3 px-8 rounded-lg"
+            >
               Become a Partner
             </button>
           </div>
